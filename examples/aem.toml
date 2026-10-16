@@ -1,0 +1,30 @@
+# Merge this fragment into your existing AEM v2 catalog; do not replace it.
+# Replace OWNER with the repository owner after choosing a remote source.
+# AEM skills require Git sources; a local Git repository path is also supported.
+[sources.ascent]
+type = "git"
+repository = "git@github.com:OWNER/ascent.git"
+
+[skills.ascent]
+source = "ascent"
+subdir = "skills/ascent"
+
+[hooks.ascent-snapshot]
+source = "ascent"
+
+[hooks.ascent-snapshot.agents.codex]
+event = "UserPromptSubmit"
+runtime = "ascent-python"
+script = "skills/ascent/scripts/ascent_hook.py"
+args = ["--interval", "5"]
+timeout = 10
+
+[hooks.ascent-refine]
+source = "ascent"
+
+[hooks.ascent-refine.agents.codex]
+event = "Stop"
+runtime = "ascent-python"
+script = "skills/ascent/scripts/ascent_hook.py"
+args = ["--interval", "5"]
+timeout = 10
